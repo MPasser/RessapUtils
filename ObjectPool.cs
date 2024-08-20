@@ -17,6 +17,8 @@ namespace Ressap.Utils {
                 obj = InstantiateObj();
             }
 
+            OnInstantiate(obj);
+
             return obj;
         }
 
@@ -25,16 +27,17 @@ namespace Ressap.Utils {
                 return;
             }
 
+            OnCollected(obj);
+
             if (capacity >= 0 && queue.Count >= capacity) {
                 DisposeObj(obj);
             } else {
                 queue.Enqueue(obj);
-                onCollected(obj);
             }
         }
 
-        protected abstract void onInstantiate(T obj);
-        protected abstract void onCollected(T obj);
+        protected abstract void OnInstantiate(T obj);
+        protected abstract void OnCollected(T obj);
 
         protected abstract T InstantiateObj();
         protected abstract void DisposeObj(T obj);
